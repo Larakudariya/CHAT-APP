@@ -14,18 +14,33 @@ import messageRoutes from "./routes/message.route.js";
 
 const PORT = process.env.PORT || 5002;
 
+// ✅ Dynamic CORS configuration
+const allowedOrigins = [
+  "http://localhost:5173", // Local development
+  "https://chat-app-7-kc7f.onrender.com" // Production Render app URL
+];
+
+app.use(cors({
+  origin: function(origin, callback){
+    if (!origin) return callback(null, true); // Allow mobile apps or curl requests
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = `CORS policy does not allow access from ${origin}`;
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true
+}));
+
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true,
-}));
 
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
+// Production build serving
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(path.resolve(), "../frontend/dist")));
 
@@ -36,7 +51,7 @@ if (process.env.NODE_ENV === "production") {
 
 // Connect DB and start server
 (async () => {
-  await connectDB(); // Call once
+  await connectDB();
   server.listen(PORT, () => {
     console.log("🚀 Server running on port", PORT);
   });

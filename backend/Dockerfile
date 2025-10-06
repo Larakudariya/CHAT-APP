@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expose backend port
-EXPOSE 5001
+EXPOSE 5002
 
-# Start the backend server
-CMD ["npm", "start"]
+# Correct entry file set karo
+CMD ["node", "src/index.js"]
