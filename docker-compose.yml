@@ -1,21 +1,43 @@
- 
-version: "3.9"
-
 services:
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+    container_name: chat-backend
     ports:
       - "5002:5002"
     volumes:
       - ./backend:/app
+    env_file:
+      - ./backend/.env
     environment:
       - NODE_ENV=production
     networks:
       - app-network
     dns:
-      - 8.8.8.8      # Google DNS
-      - 8.8.4.4      # Backup DNS
+      - 8.8.8.8
+      - 8.8.4.4
+    restart: always
 
+  frontend:
+    build:
+      context: ./frontend
+    container_name: chat-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    environment:
+      # 👇 This will tell React app where backend API is
+      - VITE_API_URL=http://localhost:5002
+      - NODE_ENV=production
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    restart: always
 
 networks:
   app-network:

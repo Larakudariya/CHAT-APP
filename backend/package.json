@@ -1,15 +1,15 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend for Full Stack Realtime Chat App",
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
     "test": "echo \"No backend tests yet\" && exit 0"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["chat", "backend", "mern", "socket.io"],
+  "author": "Your Name",
   "type": "module",
   "license": "ISC",
   "dependencies": {
@@ -27,3 +27,4 @@
     "nodemon": "^3.1.10"
   }
 }
+
