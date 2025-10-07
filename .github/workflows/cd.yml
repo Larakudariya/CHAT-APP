@@ -15,20 +15,23 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-            username: NEHA
-            password: docker2005
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-
-      - name: Build Docker image
+      - name: Build Docker images
         run: |
-          docker build -t your-dockerhub-NEHA/chat-app-frontend ./frontend
-          docker build -t your-dockerhub-NEHA/chat-app-backend ./backend
+          docker build -t NEHA/chat-app-frontend ./frontend
+          docker build -t NEHA/chat-app-backend ./backend
 
-      - name: Push Docker image
+      - name: Push Docker images
         run: |
-          docker push your-dockerhub-NEHA/chat-app-frontend
-          docker push your-dockerhub-NEHA/chat-app-backend
+          docker push NEHA/chat-app-frontend
+          docker push NEHA/chat-app-backend
 
-      - name: Deploy to Render (example)
+      - name: Install Render CLI
         run: |
-          echo "Deployment step here — depends on your hosting service"
+          curl -fsSL https://cdn.render.com/cli/latest/install.sh | bash
+
+      - name: Render deploy
+        run: |
+          render deploy service-id=tea-d3ha4logjchc73abknmg
