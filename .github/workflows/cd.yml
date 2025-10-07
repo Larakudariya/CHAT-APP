@@ -18,7 +18,7 @@ jobs:
       - name: Log in to DockerHub
         uses: docker/login-action@v2
         with:
-          username: NEHA
+          username: EHA
           password: docker2005
 
       - name: Build and Push Docker Images
