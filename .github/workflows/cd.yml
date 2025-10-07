@@ -15,8 +15,8 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: NEHA
-          password: docker2005
+          username: 
+          password: 
 
       - name: Build Docker images
         run: |
