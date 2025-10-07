@@ -23,9 +23,8 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: NEHA
-          password: docker2005
-
+          username: dsri
+          password: docker
       - name: Build Docker images
         run: |
           docker build -t NEHA/chat-app-frontend ./frontend
