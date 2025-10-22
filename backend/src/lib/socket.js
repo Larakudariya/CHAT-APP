@@ -9,7 +9,8 @@ const io = new Server(server, {
   cors: {
     origin: [
       "http://localhost:5173",
-      "https://chat-app-7-kc7f.onrender.com"
+      "https://chat-app-7-kc7f.onrender.com",
+      "https://<your-frontend-render-url>.onrender.com"
     ],
     credentials: true,
   },
@@ -23,13 +24,14 @@ io.on("connection", (socket) => {
   const userId = socket.handshake.query.userId;
   if (userId) {
     userSocketMap[userId] = socket.id;
+    console.log("Registered userId:", userId);
   }
 
   io.emit("getOnlineUsers", Object.keys(userSocketMap));
 
   socket.on("disconnect", () => {
     console.log("A user disconnected:", socket.id);
-    delete userSocketMap[userId];
+    if (userId) delete userSocketMap[userId];
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
   });
 });

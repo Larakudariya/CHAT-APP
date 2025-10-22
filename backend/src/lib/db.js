@@ -1,19 +1,16 @@
 import mongoose from "mongoose";
+import { configDotenv } from "dotenv";
 
-export const connectDB = async () => {
-  const mongoUri = process.env.MONGODB_URI; 
-  console.log("MONGODB_URI =", mongoUri);
-
-  if (!mongoUri) {
-    console.error("❌ MONGODB_URI is not defined in .env");
-    process.exit(1);
-  }
-
+configDotenv()
+export async function connectDB() {
   try {
-    const conn = await mongoose.connect(mongoUri);
-    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
+    const conn = await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
-    console.error("❌ MongoDB Connection Error:", error.message);
+    console.error("MongoDB connection error:", error);
     process.exit(1);
   }
-};
+}
