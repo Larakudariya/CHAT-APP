@@ -1,21 +1,81 @@
+# services:
+#   backend:
+#     build:
+#       context: ./backend
+#     container_name: chat-backend
+#     ports:
+#       - "5002:5002"
+#     volumes:
+#       - ./backend:/app
+#     env_file:
+#       - ./backend/.env
+#     environment:
+#       - NODE_ENV=production
+#     networks:
+#       - app-network
+#     dns:
+#       - 8.8.8.8
+#       - 8.8.4.4
+#     restart: always
+
+#   frontend:
+#     build:
+#       context: ./frontend
+#     container_name: chat-frontend
+#     ports:
+#       - "3000:3000"
+#     volumes:
+#       - ./frontend:/app
+#     environment:
+#       # 👇 This will tell React app where backend API is
+#       - VITE_API_URL=http://localhost:5002
+#       - NODE_ENV=production
+#     depends_on:
+#       - backend
+#     networks:
+#       - app-network
+#     dns:
+#       - 8.8.8.8
+#       - 8.8.4.4
+#     restart: always
+
+# networks:
+#   app-network:
+#     driver: bridge
+
+version: "3.9"
+
 services:
+  mongo:
+    image: mongo:6.0
+    container_name: chat-mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
+    restart: always
+
   backend:
     build:
       context: ./backend
     container_name: chat-backend
     ports:
       - "5002:5002"
-    volumes:
-      - ./backend:/app
     env_file:
       - ./backend/.env
     environment:
-      - NODE_ENV=production
+      NODE_ENV: production
+      # Connect to Mongo service
+      MONGO_URI: mongodb+srv://larakudariya_db_user:O89hkUMUe854bTeW@cluster0.afhwihr.mongodb.net/chat_db_tut?retryWrites=true&w=majority&appName=Cluster0
+    depends_on:
+      - mongo
     networks:
       - app-network
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
     restart: always
 
   frontend:
@@ -23,21 +83,18 @@ services:
       context: ./frontend
     container_name: chat-frontend
     ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/app
+      - "3000:80"   # Nginx serves built React app on port 80
     environment:
-      # 👇 This will tell React app where backend API is
-      - VITE_API_URL=http://localhost:5002
-      - NODE_ENV=production
+      NODE_ENV: production
+      VITE_API_URL: http://localhost:5173
     depends_on:
       - backend
     networks:
       - app-network
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
     restart: always
+
+volumes:
+  mongo-data:
 
 networks:
   app-network:

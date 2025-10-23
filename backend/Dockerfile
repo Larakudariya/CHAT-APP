@@ -1,40 +1,21 @@
-# # Use Node.js LTS version
-# FROM node:18
+# Use official Node.js image
+FROM node:20
 
-# # Set working directory inside container
-# WORKDIR /app
-
-# # Copy package files
-# COPY package*.json ./
-
-# # Install dependencies
-# RUN npm install
-
-# # Copy all files
-# COPY . .
-
-# # Expose backend port
-# EXPOSE 5002
-
-# # Correct entry file set karo
-# CMD ["node", "src/index.js"]
-
-
-# Use Node.js LTS version
-FROM node:18
-
-# Set working directory inside container
+# Set working directory inside the container
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Copy package files first
 COPY package*.json ./
+
+# Install dependencies inside the container
 RUN npm install
 
-# Copy all files
+# Copy the rest of your backend code
 COPY . .
 
 # Expose backend port
 EXPOSE 5002
 
-# Start the backend server
-CMD ["node", "src/index.js"]
+# Start the app using package.json start script
+CMD ["npm", "start"]
+

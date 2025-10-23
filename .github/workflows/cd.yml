@@ -23,8 +23,8 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: dsri
-          password: docker
+          username: 
+          password: 
       - name: Build Docker images
         run: |
           docker build -t NEHA/chat-app-frontend ./frontend
@@ -37,7 +37,10 @@ jobs:
 
       - name: Install Render CLI
         run: |
-          curl -fsSL https://cdn.render.com/cli/latest/install.sh | bash
+          curl --request GET \
+          --url 'https://api.render.com/v1/services?limit=20' \
+          --header 'Accept: application/json' \
+          --header 'Authorization: Bearer {{SECRETS.RENDER_TOKEN}}'
 
       - name: Deploy to Render
         run: |

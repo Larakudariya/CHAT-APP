@@ -1,0 +1,38 @@
+
+# Node modules
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker
+*.dockerignore
+docker-compose.override.yml
+
+# Build outputs
+frontend/build/
+backend/dist/
+
+# GitHub Actions
+.github/workflows/*.log
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Optional: Mac OS metadata
+.AppleDouble
+.LSOverride
