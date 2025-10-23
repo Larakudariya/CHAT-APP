@@ -45,6 +45,9 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
+// Health check for tests / simple API check
+app.get("/", (req, res) => res.send("API is working 🚀"));
+
 // Production build serving
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../../frontend/dist")));
@@ -66,3 +69,5 @@ if (process.env.NODE_ENV === "production") {
     console.error("❌ Server failed to start", err);
   }
 })();
+
+export default app;
