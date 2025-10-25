@@ -49,9 +49,10 @@ jobs:
 
       - name: Deploy to Render
         env:
-          RENDER_API_KEY: srv-d3j0ks49c44c73b3u920 
+          RENDER_API_KEY: rnd_UIYwfwEXphBnf6sFZIMPcDf7whPf
         run: |
-          render deploy service tea-d3ha4logjchc73abknmg --api-key srv-d3j0ks49c44c73b3u920
+          render deploy service tea-d3ha4logjchc73abknmg --api-key rnd_UIYwfwEXphBnf6sFZIMPcDf7whPf
+
 
 
 
