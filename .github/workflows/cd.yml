@@ -49,8 +49,9 @@ jobs:
 
       - name: Deploy to Render
         env:
-          RENDER_TOKEN: ${{ secrets.RENDER_TOKEN }}
+          RENDER_API_KEY: srv-d3j0ks49c44c73b3u920 
         run: |
-          render deploy service tea-d3ha4logjchc73abknmg --api-key $RENDER_TOKEN
+          render deploy service tea-d3ha4logjchc73abknmg --api-key srv-d3j0ks49c44c73b3u920
+
 
 
