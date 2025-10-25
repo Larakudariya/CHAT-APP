@@ -23,8 +23,8 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: 
-          password: 
+          username: nehaatwork0
+          password: docker005
       - name: Build Docker images
         run: |
           docker build -t NEHA/chat-app-frontend ./frontend
@@ -43,5 +43,7 @@ jobs:
           --header 'Authorization: Bearer {{SECRETS.RENDER_TOKEN}}'
 
       - name: Deploy to Render
+        env:
+          RENDER_TOKEN: ${{ secrets.RENDER_TOKEN }}
         run: |
-          render deploy service-id=tea-d3ha4logjchc73abknmg
+          render deploy service tea-d3ha4logjchc73abknmg --api-key $RENDER_TOKEN
