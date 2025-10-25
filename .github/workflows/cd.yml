@@ -27,13 +27,13 @@ jobs:
           password: docker005
       - name: Build Docker images
         run: |
-          docker build -t NEHA/chat-app-frontend ./frontend
-          docker build -t NEHA/chat-app-backend ./backend
+          docker build -t nehaatwork0/chat-app-frontend ./frontend
+          docker build -t nehaatwork0/chat-app-backend ./backend
 
       - name: Push Docker images
         run: |
-          docker push NEHA/chat-app-frontend
-          docker push NEHA/chat-app-backend
+          docker push nehaatwork0/chat-app-frontend
+          docker push nehaatwork0/chat-app-backend
 
       - name: Install Render CLI
         run: |
@@ -47,3 +47,4 @@ jobs:
           RENDER_TOKEN: ${{ secrets.RENDER_TOKEN }}
         run: |
           render deploy service tea-d3ha4logjchc73abknmg --api-key $RENDER_TOKEN
+
