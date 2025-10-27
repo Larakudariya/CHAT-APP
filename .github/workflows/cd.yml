@@ -23,17 +23,17 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: 
-          password: 
+          username: nehaatwork0 
+          password: docker005
       - name: Build Docker images
         run: |
-          docker build -t NEHA/chat-app-frontend ./frontend
-          docker build -t NEHA/chat-app-backend ./backend
+          docker build -t nehaatwork0/chat-app-frontend ./frontend
+          docker build -t nehaatwork0/chat-app-backend ./backend
 
       - name: Push Docker images
         run: |
-          docker push NEHA/chat-app-frontend
-          docker push NEHA/chat-app-backend
+          docker push nehaatwork0/chat-app-frontend
+          docker push nehaatwork0/chat-app-backend
 
       - name: Install Render CLI
         run: |
