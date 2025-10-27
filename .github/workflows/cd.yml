@@ -35,13 +35,13 @@ jobs:
           docker push nehaatwork0/chat-app-frontend
           docker push nehaatwork0/chat-app-backend
 
-      - name: Install Render CLI
+      - name: Trigger Render Deployment
+        env:
+          RENDER_API_KEY: rnd_kSxqGH5WYz3s8biqKC1O2vZVljrd
+          RENDER_SERVICE_ID: srv-d3hka1r3fgac739sdg2g
         run: |
-          curl --request GET \
-          --url 'https://api.render.com/v1/services?limit=20' \
-          --header 'Accept: application/json' \
-          --header 'Authorization: Bearer {{SECRETS.RENDER_TOKEN}}'
-
-      - name: Deploy to Render
-        run: |
-          render deploy service-id=tea-d3ha4logjchc73abknmg
+          echo "Triggering Render deploy..."
+          curl -X POST "https://api.render.com/v1/services/${RENDER_SERVICE_ID}/deploys" \
+            -H "Accept: application/json" \
+            -H "Authorization: Bearer ${RENDER_API_KEY}" \
+            -d '{}'
