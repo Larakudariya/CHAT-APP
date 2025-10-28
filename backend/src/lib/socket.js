@@ -12,8 +12,9 @@ const io = new Server(server, {
     origin: [
       "http://localhost:5173",
       "https://chat-app-7-kc7f.onrender.com",
-      "https://your-frontend-render-url.onrender.com", // replace this
+      "https://chat-app-frontend2-nmig.onrender.com", // replace this
     ],
+    methods:["GET","POST"],
     credentials: true,
   },
 });

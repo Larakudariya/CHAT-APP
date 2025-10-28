@@ -1,5 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
+// ✅ Debug environment variables
+console.log("✅ NODE_ENV =", process.env.NODE_ENV); 
 
 import express from "express";
 import cookieParser from "cookie-parser";
@@ -17,6 +19,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const PORT = process.env.PORT || 5002;
+
+// ✅ Debug environment variables
+console.log("✅ JWT_SECRET exists:", !!process.env.JWT_SECRET);
+console.log("✅ MONGO_URI exists:", !!process.env.MONGO_URI);
 
 // ✅ Dynamic CORS configuration
 const allowedOrigins = [
